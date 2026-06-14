@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Node/NPM (if added later)
+node_modules/
+package-lock.json
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

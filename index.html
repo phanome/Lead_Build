@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead Build — Lead Database · Cold Outreach · ICP Scoring</title>
+  <meta name="description" content="A premium sales enablement toolkit: structured lead database, A/B cold outreach campaign tracker, and ICP framework with live lead scoring.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════════════ TOP NAV ══════════════════ -->
+  <nav class="top-nav">
+    <a class="nav-brand" href="#">
+      <div class="nav-brand-icon">🎯</div>
+      <span class="nav-brand-name">Lead Build</span>
+    </a>
+
+    <div class="nav-tabs">
+      <button class="nav-tab" data-module="leads" id="tab-leads">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Lead Database
+      </button>
+      <button class="nav-tab" data-module="outreach" id="tab-outreach">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Cold Outreach
+      </button>
+      <button class="nav-tab" data-module="icp" id="tab-icp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/>
+          <line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/>
+          <line x1="12" y1="22" x2="12" y2="18"/>
+        </svg>
+        ICP Scoring
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <span class="badge badge-teal">v1.0</span>
+      <span class="badge badge-violet">Sales Enablement</span>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════
+       MODULE 1 — LEAD DATABASE BUILD
+       ══════════════════════════════════════════════ -->
+  <section class="module" id="leads">
+
+    <div class="section-header">
+      <div class="header-meta">
+        <span class="badge badge-teal">Module 1</span>
+        <span class="badge badge-violet" id="leads-count-badge">15 Prospects</span>
+      </div>
+      <h1><span class="gradient-text">Lead Database</span> Build</h1>
+      <p>A structured, segmented list of prospects your sales team can actually work from. Filter by firmographic data and buying signals. Click any row to expand contact details and notes.</p>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="btn-export-leads">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="leads-stats-row">
+      <div class="stat-mini-card teal">
+        <div class="stat-mini-value" id="stat-total" style="color:var(--accent-teal)">0</div>
+        <div class="stat-mini-label">Total Prospects</div>
+      </div>
+      <div class="stat-mini-card green">
+        <div class="stat-mini-value" id="stat-tier1" style="color:var(--accent-green)">0</div>
+        <div class="stat-mini-label">Tier 1 (Hot)</div>
+      </div>
+      <div class="stat-mini-card amber">
+        <div class="stat-mini-value" id="stat-tier2" style="color:var(--accent-amber)">0</div>
+        <div class="stat-mini-label">Tier 2 (Warm)</div>
+      </div>
+      <div class="stat-mini-card violet">
+        <div class="stat-mini-value" id="stat-signals" style="color:var(--accent-violet)">0</div>
+        <div class="stat-mini-label">With Buying Signals</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="glass-panel" style="margin-bottom:var(--sp-5);padding:var(--sp-4) var(--sp-5)">
+      <div class="filter-bar">
+        <div class="form-group">
+          <label class="form-label">Industry</label>
+          <select class="form-select" id="filter-industry">
+            <option value="All">All Industries</option>
+            <option value="SaaS">SaaS</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Finance">Finance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company Size</label>
+          <select class="form-select" id="filter-size">
+            <option value="All">All Sizes</option>
+            <option value="SMB">SMB (&lt; 50)</option>
+            <option value="Mid-Market">Mid-Market (50–500)</option>
+            <option value="Enterprise">Enterprise (500+)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tier / Priority</label>
+          <select class="form-select" id="filter-tier">
+            <option value="All">All Tiers</option>
+            <option value="Tier 1">Tier 1 🔥</option>
+            <option value="Tier 2">Tier 2 ⚡</option>
+            <option value="Tier 3">Tier 3 🌱</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Buying Signal</label>
+          <select class="form-select" id="filter-signal">
+            <option value="All">All Signals</option>
+            <option value="funded">Recently Funded 💸</option>
+            <option value="hiring">Hiring Signal 📈</option>
+            <option value="rival">Using Competitor ⚔️</option>
+            <option value="legacy">Legacy System ⚠️</option>
+            <option value="none">None</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1">
+          <label class="form-label">Search</label>
+          <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="form-input" id="search-leads" placeholder="Search company, contact, title, notes…">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container">
+      <div class="table-container-header">
+        <div class="flex items-center gap-3">
+          <h2 style="font-size:var(--fs-base);font-weight:var(--fw-semi)">Prospect List</h2>
+          <span class="badge badge-gray">Click any row to expand</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-muted">
+          <span>🟢 Tier 1</span>
+          <span>🟡 Tier 2</span>
+          <span>⚫ Tier 3</span>
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table" id="leads-table">
+          <thead>
+            <tr>
+              <th style="width:44px">#</th>
+              <th data-sort="company">Company <span class="sort-icon">⇅</span></th>
+              <th data-sort="industry">Industry <span class="sort-icon">⇅</span></th>
+              <th data-sort="size">Size <span class="sort-icon">⇅</span></th>
+              <th data-sort="contact">Contact <span class="sort-icon">⇅</span></th>
+              <th>Title</th>
+              <th>Email</th>
+              <th data-sort="signalType">Signal <span class="sort-icon">⇅</span></th>
+              <th data-sort="tier">Tier <span class="sort-icon">⇅</span></th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Segmentation Logic Explainer -->
+    <div class="glass-panel" style="margin-top:var(--sp-4)">
+      <h3 style="font-size:var(--fs-base);margin-bottom:var(--sp-4)">📐 Segmentation Logic</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--sp-4)">
+        <div style="background:hsla(155,80%,6%,0.6);border:1px solid hsla(155,80%,48%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
+          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-green);margin-bottom:var(--sp-2)">🥇 Tier 1 — High Priority</div>
+          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">Strong buying signal (funded, competitor use, or legacy system) + target company size. These get personalized outreach within 24h.</div>
+        </div>
+        <div style="background:hsla(40,95%,6%,0.6);border:1px solid hsla(40,95%,60%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
+          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-amber);margin-bottom:var(--sp-2)">🥈 Tier 2 — Warm Prospects</div>
+          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">Moderate signal or adjacent industry fit. Add to an automated nurture sequence and revisit each quarter for updated triggers.</div>
+        </div>
+        <div style="background:hsla(215,25%,8%,0.6);border:1px solid var(--clr-border);border-radius:var(--r-lg);padding:var(--sp-4)">
+          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--txt-secondary);margin-bottom:var(--sp-2)">🥉 Tier 3 — Watch List</div>
+          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">No current buying signal or poor size fit. Keep in CRM, set a 90-day check-in reminder. A trigger event can fast-track to Tier 1.</div>
+        </div>
+        <div style="background:hsla(265,80%,6%,0.6);border:1px solid hsla(265,80%,65%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
+          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-violet);margin-bottom:var(--sp-2)">🔍 Signal Sources</div>
+          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">LinkedIn job posts (hiring), BuiltWith (tech stack), LinkedIn Sales Navigator (funding alerts), G2 reviews (competitor pain points).</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       MODULE 2 — COLD OUTREACH CAMPAIGN
+       ══════════════════════════════════════════════ -->
+  <section class="module" id="outreach">
+
+    <div class="section-header">
+      <div class="header-meta">
+        <span class="badge badge-amber">Module 2</span>
+        <span class="badge badge-green">Live Metrics</span>
+      </div>
+      <h1><span class="gradient-text">Cold Outreach</span> Campaign</h1>
+      <p>A/B test 3 message variants across a 4-step sequence. Switch variants below to compare open rates, reply rates, and meetings booked — with a plain-English "what we learned" analysis.</p>
+    </div>
+
+    <div class="outreach-layout">
+
+      <!-- LEFT: Sequence Timeline -->
+      <div class="sequence-panel">
+        <h2 style="font-size:var(--fs-lg)">📬 Email Sequence</h2>
+        <p class="text-xs text-muted" style="margin-top:var(--sp-1)">4-step sequence over 10 days</p>
+        <div class="sequence-timeline" id="sequence-timeline">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- What works explainer -->
+        <div style="margin-top:var(--sp-6);padding:var(--sp-4);background:hsla(185,90%,5%,0.6);border:1px solid hsla(185,90%,55%,0.15);border-radius:var(--r-lg)">
+          <h4 style="font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--accent-teal);margin-bottom:var(--sp-3);text-transform:uppercase;letter-spacing:0.06em">What makes cold email work</h4>
+          <ul style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.7;list-style:none;display:flex;flex-direction:column;gap:var(--sp-2)">
+            <li>✓ Personalize the first line (company-specific, not "I saw you're in tech")</li>
+            <li>✓ Lead with their problem, not your product</li>
+            <li>✓ One clear, low-friction CTA ("worth a 15-min chat?")</li>
+            <li>✓ Keep it under 100 words</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: A/B Metrics + Preview -->
+      <div>
+
+        <!-- A/B Variant Selector -->
+        <div class="ab-selector">
+          <button class="section-pill" data-variant="A" id="pill-A">Variant A — Control</button>
+          <button class="section-pill active" data-variant="B" id="pill-B">Variant B — Personalized 🏆</button>
+          <button class="section-pill" data-variant="C" id="pill-C">Variant C — Direct CTA</button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="outreach-stats-grid" id="outreach-stats-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Conversion Funnel Chart -->
+        <div class="chart-panel">
+          <div class="chart-title">📊 Conversion Funnel — Sent → Opened → Replied → Booked</div>
+          <div style="height:200px;position:relative">
+            <canvas id="outreach-funnel-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- Email Preview -->
+        <div class="email-preview-panel">
+          <div class="email-preview-header">
+            <span style="font-size:var(--fs-xs);font-weight:var(--fw-semi);color:var(--txt-secondary)">📧 Step 1: First Touch Preview</span>
+            <span class="badge badge-teal">Auto-updating</span>
+          </div>
+          <div class="email-field">
+            <span class="email-field-label">From:</span>
+            <span class="email-field-value" style="color:var(--txt-muted)">[Your Name] &lt;you@yourdomain.com&gt;</span>
+          </div>
+          <div class="email-field">
+            <span class="email-field-label">Subject:</span>
+            <span class="email-field-value" id="outreach-subject" style="font-weight:var(--fw-semi)"></span>
+          </div>
+          <div class="email-body-field" id="outreach-body"></div>
+        </div>
+
+        <!-- Results Narrative -->
+        <div class="results-report">
+          <h3>📋 Results Report</h3>
+          <p class="results-narrative" id="results-narrative"></p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       MODULE 3 — ICP FRAMEWORK & LEAD SCORING
+       ══════════════════════════════════════════════ -->
+  <section class="module" id="icp">
+
+    <div class="section-header">
+      <div class="header-meta">
+        <span class="badge badge-pink">Module 3</span>
+        <span class="badge badge-amber">Dynamic Scoring</span>
+      </div>
+      <h1><span class="gradient-text">ICP Framework</span> &amp; Lead Scoring</h1>
+      <p>Define your Ideal Customer Profile and score every prospect against it. Adjust the weight sliders — the ranked list updates in real-time. Use the one-pager to document and share your ICP criteria.</p>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="btn-print-icp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Export ICP One-Pager
+        </button>
+      </div>
+    </div>
+
+    <div class="icp-layout">
+
+      <!-- LEFT: Scoring Config + One-pager -->
+      <div>
+        <div class="scoring-config-panel">
+          <h2 style="font-size:var(--fs-lg);margin-bottom:var(--sp-5)">⚖️ Scoring Criteria Weights</h2>
+
+          <div class="slider-row">
+            <div class="input-with-display">
+              <label class="form-label">Industry Match</label>
+              <span class="input-display-value" id="disp-weight-industry">25%</span>
+            </div>
+            <input type="range" class="icp-slider" data-target="industry" min="0" max="60" step="5" value="25">
+          </div>
+
+          <div class="slider-row">
+            <div class="input-with-display">
+              <label class="form-label">Company Size Fit</label>
+              <span class="input-display-value" id="disp-weight-size">20%</span>
+            </div>
+            <input type="range" class="icp-slider" data-target="size" min="0" max="60" step="5" value="20">
+          </div>
+
+          <div class="slider-row">
+            <div class="input-with-display">
+              <label class="form-label">Buying Signal Present</label>
+              <span class="input-display-value" id="disp-weight-signal">25%</span>
+            </div>
+            <input type="range" class="icp-slider" data-target="signal" min="0" max="60" step="5" value="25">
+          </div>
+
+          <div class="slider-row">
+            <div class="input-with-display">
+              <label class="form-label">Budget / Tech Stack</label>
+              <span class="input-display-value" id="disp-weight-budget">15%</span>
+            </div>
+            <input type="range" class="icp-slider" data-target="budget" min="0" max="60" step="5" value="15">
+          </div>
+
+          <div class="slider-row">
+            <div class="input-with-display">
+              <label class="form-label">Accessibility (Warm Intro)</label>
+              <span class="input-display-value" id="disp-weight-access">15%</span>
+            </div>
+            <input type="range" class="icp-slider" data-target="access" min="0" max="60" step="5" value="15">
+          </div>
+
+          <div class="total-weight-bar">
+            <span class="total-weight-label">Total Weight</span>
+            <span class="total-weight-value ok" id="icp-total-weight">100%</span>
+          </div>
+        </div>
+
+        <!-- ICP One-Pager -->
+        <div class="icp-onepager" id="icp-onepager">
+          <h3>📄 ICP One-Pager — Scoring Criteria</h3>
+          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);margin-bottom:var(--sp-4);line-height:1.6">
+            Your Ideal Customer Profile targets <strong style="color:var(--txt-primary)">SaaS &amp; Manufacturing companies</strong> with <strong style="color:var(--txt-primary)">50–500 employees</strong>, showing active buying signals (hiring, funding, or competitor use), with decision-maker access.
+          </div>
+          <div class="icp-criteria-list" id="icp-criteria-list">
+            <!-- Populated by JS -->
+          </div>
+          <div style="margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid hsla(265,80%,65%,0.15);font-size:var(--fs-xs);color:var(--txt-muted)">
+            Scoring: multiply weight × raw score (0–10) per criterion → sum → rank highest first.<br>
+            Tier 1 ≥ 8.0 · Tier 2 ≥ 5.5 · Tier 3 &lt; 5.5
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Ranked Prospects -->
+      <div class="ranked-panel">
+        <div class="ranked-panel-header">
+          <h2 style="font-size:var(--fs-lg)">🏆 Top Ranked Prospects</h2>
+          <span class="badge badge-violet">Live · Auto-sorted</span>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table" id="icp-table">
+            <thead>
+              <tr>
+                <th style="width:48px">Rank</th>
+                <th>Company</th>
+                <th>Industry</th>
+                <th>ICP Score</th>
+                <th>Tier</th>
+              </tr>
+            </thead>
+            <tbody id="icp-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div><!-- /#app -->
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Scripts -->
+<script src="js/app.js"></script>
+<script src="js/leads.js"></script>
+<script src="js/outreach.js"></script>
+<script src="js/icp.js"></script>
+
+</body>
+</html>
