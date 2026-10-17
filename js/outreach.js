@@ -203,10 +203,10 @@ ${v.insight}"`;
           label: `Variant ${variantKey}`,
           data: [v.sent, v.opened, v.replied, v.booked],
           backgroundColor: [
-            '#475569',
-            '#f59e0b',
-            '#3b82f6',
-            '#10b981',
+            '#64748b',
+            '#d97706',
+            '#2563eb',
+            '#059669',
           ],
           borderRadius: 4,
           borderSkipped: false,
@@ -218,11 +218,11 @@ ${v.insight}"`;
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#18202d',
-            borderColor: '#2d3748',
+            backgroundColor: '#0f172a',
+            borderColor: '#1e293b',
             borderWidth: 1,
-            titleColor: '#f8fafc',
-            bodyColor: '#cbd5e1',
+            titleColor: '#ffffff',
+            bodyColor: '#e2e8f0',
             padding: 10,
             cornerRadius: 6,
           },
@@ -230,7 +230,7 @@ ${v.insight}"`;
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+            grid: { color: 'rgba(0, 0, 0, 0.06)' },
             ticks: { color: '#64748b', font: { size: 11, family: 'Inter' } },
           },
           x: {
