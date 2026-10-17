@@ -190,22 +190,22 @@
     <!-- Segmentation Logic Explainer -->
     <div class="glass-panel" style="margin-top:var(--sp-4)">
       <h3 style="font-size:var(--fs-base);margin-bottom:var(--sp-4)">📐 Segmentation Logic</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--sp-4)">
-        <div style="background:hsla(155,80%,6%,0.6);border:1px solid hsla(155,80%,48%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
-          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-green);margin-bottom:var(--sp-2)">🥇 Tier 1 — High Priority</div>
-          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">Strong buying signal (funded, competitor use, or legacy system) + target company size. These get personalized outreach within 24h.</div>
+      <div class="segmentation-grid">
+        <div class="segmentation-card" style="border-left:3px solid #10b981">
+          <div class="segmentation-card-title" style="color:var(--accent-green)">🥇 Tier 1 — High Priority</div>
+          <div class="segmentation-card-desc">Strong buying signal (funded, competitor use, or legacy system) + target company size. These get personalized outreach within 24h.</div>
         </div>
-        <div style="background:hsla(40,95%,6%,0.6);border:1px solid hsla(40,95%,60%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
-          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-amber);margin-bottom:var(--sp-2)">🥈 Tier 2 — Warm Prospects</div>
-          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">Moderate signal or adjacent industry fit. Add to an automated nurture sequence and revisit each quarter for updated triggers.</div>
+        <div class="segmentation-card" style="border-left:3px solid #f59e0b">
+          <div class="segmentation-card-title" style="color:var(--accent-amber)">🥈 Tier 2 — Warm Prospects</div>
+          <div class="segmentation-card-desc">Moderate signal or adjacent industry fit. Add to an automated nurture sequence and revisit each quarter for updated triggers.</div>
         </div>
-        <div style="background:hsla(215,25%,8%,0.6);border:1px solid var(--clr-border);border-radius:var(--r-lg);padding:var(--sp-4)">
-          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--txt-secondary);margin-bottom:var(--sp-2)">🥉 Tier 3 — Watch List</div>
-          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">No current buying signal or poor size fit. Keep in CRM, set a 90-day check-in reminder. A trigger event can fast-track to Tier 1.</div>
+        <div class="segmentation-card" style="border-left:3px solid #64748b">
+          <div class="segmentation-card-title" style="color:var(--txt-secondary)">🥉 Tier 3 — Watch List</div>
+          <div class="segmentation-card-desc">No current buying signal or poor size fit. Keep in CRM, set a 90-day check-in reminder. A trigger event can fast-track to Tier 1.</div>
         </div>
-        <div style="background:hsla(265,80%,6%,0.6);border:1px solid hsla(265,80%,65%,0.2);border-radius:var(--r-lg);padding:var(--sp-4)">
-          <div style="font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--accent-violet);margin-bottom:var(--sp-2)">🔍 Signal Sources</div>
-          <div style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.6">LinkedIn job posts (hiring), BuiltWith (tech stack), LinkedIn Sales Navigator (funding alerts), G2 reviews (competitor pain points).</div>
+        <div class="segmentation-card" style="border-left:3px solid #8b5cf6">
+          <div class="segmentation-card-title" style="color:var(--accent-violet)">🔍 Signal Sources</div>
+          <div class="segmentation-card-desc">LinkedIn job posts (hiring), BuiltWith (tech stack), LinkedIn Sales Navigator (funding alerts), G2 reviews (competitor pain points).</div>
         </div>
       </div>
     </div>
@@ -231,16 +231,16 @@
 
       <!-- LEFT: Sequence Timeline -->
       <div class="sequence-panel">
-        <h2 style="font-size:var(--fs-lg)">📬 Email Sequence</h2>
-        <p class="text-xs text-muted" style="margin-top:var(--sp-1)">4-step sequence over 10 days</p>
+        <h2 style="font-size:var(--fs-base);font-weight:var(--fw-semi)">📬 Email Sequence</h2>
+        <p class="text-xs text-muted" style="margin-top:2px">4-step sequence over 10 days</p>
         <div class="sequence-timeline" id="sequence-timeline">
           <!-- Populated by JS -->
         </div>
 
         <!-- What works explainer -->
-        <div style="margin-top:var(--sp-6);padding:var(--sp-4);background:hsla(185,90%,5%,0.6);border:1px solid hsla(185,90%,55%,0.15);border-radius:var(--r-lg)">
-          <h4 style="font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--accent-teal);margin-bottom:var(--sp-3);text-transform:uppercase;letter-spacing:0.06em">What makes cold email work</h4>
-          <ul style="font-size:var(--fs-xs);color:var(--txt-secondary);line-height:1.7;list-style:none;display:flex;flex-direction:column;gap:var(--sp-2)">
+        <div class="explainer-box">
+          <h4 class="explainer-box-title">What makes cold email work</h4>
+          <ul class="explainer-list">
             <li>✓ Personalize the first line (company-specific, not "I saw you're in tech")</li>
             <li>✓ Lead with their problem, not your product</li>
             <li>✓ One clear, low-friction CTA ("worth a 15-min chat?")</li>
@@ -383,7 +383,7 @@
           <div class="icp-criteria-list" id="icp-criteria-list">
             <!-- Populated by JS -->
           </div>
-          <div style="margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid hsla(265,80%,65%,0.15);font-size:var(--fs-xs);color:var(--txt-muted)">
+          <div style="margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--clr-border);font-size:var(--fs-xs);color:var(--txt-muted)">
             Scoring: multiply weight × raw score (0–10) per criterion → sum → rank highest first.<br>
             Tier 1 ≥ 8.0 · Tier 2 ≥ 5.5 · Tier 3 &lt; 5.5
           </div>
